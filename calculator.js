@@ -19,7 +19,7 @@ buttons.forEach(button => button.addEventListener("click", e=> equalsButton(e)))
 
 function numberButtons(e){
     if (e.target.className!="number") return
-    if (lowerScreen.innerText==="0") lowerScreen.innerText="" 
+    if (lowerScreen.innerText==="0"||lowerScreen.innerText==="Cannot Divide By Zero") lowerScreen.innerText="" 
     lowerScreen.innerText+=e.target.innerText
 }
 
@@ -47,6 +47,7 @@ function operatorButtons(e){
     upperScreen.innerText = `${finalResult} ${e.target.innerText}`
     }
     lowerScreen.innerText=0
+    zeroCheck();
 }
 
 function equalsButton(e){
@@ -56,6 +57,7 @@ function equalsButton(e){
     calculate()
     upperScreen.innerText= `${result[0]} ${upperScreen.innerText.at(-1)} ${lowerScreen.innerText} =`
     lowerScreen.innerText=`${finalResult}`
+    zeroCheck();
 }
 
 function updateResult(){
@@ -74,5 +76,13 @@ function calculate(){
         case "x": finalResult=result[0]*result[1]; break;
         case "÷": finalResult=result[0]/result[1]; break;
     }  
+}
+
+function zeroCheck(){
+    if (finalResult===Infinity){
+        lowerScreen.innerText="Cannot Divide By Zero"
+        result=null
+        finalResult=NaN
+    }
 }
 
